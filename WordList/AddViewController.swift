@@ -24,26 +24,45 @@ class AddViewController: UIViewController {
     
     @IBAction func saveWord() {
         
-        let wordDictionary = ["english":englishTextField.text!,"japanese": japaneseTextField.text!]
-        //wordArrayに追加
-        wordArray.append(wordDictionary)
-        //UserDefaultsに保存！！！！！！
-        saveData.set(wordArray, forKey: "WORD")
+        if englishTextField.text == "" || japaneseTextField.text == ""{//どちらかが空欄の時にアラート表示する
+            //alertを作成
+            let alert = UIAlertController(
+                title: "空欄があります",
+                message: "英語と日本語をそれぞれ入力してください",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: nil
+            ))
+            present(alert, animated: true, completion: nil)
+        } else {
+            
+            let wordDictionary = ["english":englishTextField.text!,"japanese": japaneseTextField.text!]
         
-        //alertを作成
-        let alert = UIAlertController(
-            title: "保存完了",
-            message: "単語の登録が完了しました",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(
-            title: "OK",
-            style: .default,
-            handler: nil
-        ))
-        present(alert, animated: true, completion: nil)
-        englishTextField.text = ""
-        japaneseTextField.text = ""
+            //wordArrayに追加
+            wordArray.append(wordDictionary)
+            //UserDefaultsに保存！！！！！！
+            saveData.set(wordArray, forKey: "WORD")
+            
+            //alertを作成
+            let alert = UIAlertController(
+                title: "保存完了",
+                message: "単語の登録が完了しました",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: nil
+            ))
+            present(alert, animated: true, completion: nil)
+            englishTextField.text = ""
+            japaneseTextField.text = ""
+            
+        }
+        
     }
     
 
